@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for ReactFlow */
+.react-flow__edge-path {
+  stroke: #a78bfa;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 3px rgba(167, 139, 250, 0.5));
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke-dasharray: 5;
+  animation: dashdraw 0.5s linear infinite;
+}
+
+@keyframes dashdraw {
+  from {
+    stroke-dashoffset: 10;
+  }
+}
+
+/* Style the nodes */
+.react-flow__node {
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s, filter 0.2s;
+  cursor: grab !important;
+  user-select: none;
+  z-index: 10;
+}
+
+.react-flow__node.selected {
+  z-index: 20;
+  outline: 2px solid rgba(167, 139, 250, 0.8) !important;
+}
+
+.react-flow__node.dragging,
+.react-flow__node:active {
+  z-index: 30 !important;
+  cursor: grabbing !important;
+}
+
+.react-flow__node:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4));
+}
+
+/* Background pattern */
+.react-flow__background {
+  opacity: 0.5;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #4c1d95;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8b5cf6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a78bfa;
+}
+
+/* Custom minimap styling */
+.react-flow__minimap {
+  transform: scale(0.8);
+  transform-origin: bottom right;
+  opacity: 0.9;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 140px !important;
+  height: 100px !important;
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+  .react-flow__controls {
+    transform: scale(0.85);
+  }
+  
+  .react-flow__minimap {
+    transform: scale(0.7);
+    transform-origin: bottom right;
+  }
+}
+
+/* Touch device support */
+@media (pointer: coarse) {
+  .react-flow__handle {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .react-flow__node:active {
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+    cursor: grabbing !important;
+  }
+}
+
+/* Ensure proper cursor styles for the flow pane and all nodes */
+.react-flow__pane {
+  cursor: default;
+}
+
+/* Make sure all parts of a node use the grab cursor */
+.react-flow__node,
+.react-flow__node * {
+  cursor: grab !important;
+}
+
+/* Override for specific elements that should not have grab cursor */
+.react-flow__node input,
+.react-flow__node select,
+.react-flow__node textarea,
+.react-flow__node button {
+  cursor: pointer !important;
+}
+
+.react-flow__node input:focus,
+.react-flow__node select:focus,
+.react-flow__node textarea:focus {
+  cursor: text !important;
+}
+
+/* Add dragging class to handle when being moved */
+.react-flow__handle.dragging {
+  cursor: grabbing !important;
+}
