@@ -101,13 +101,6 @@ pip install -r requirements.txt
 
 ### Running the Application
 
-#### Option 1: Quick Start (Windows)
-```batch
-start.bat
-```
-
-#### Option 2: Manual Startup
-
 **Terminal 1 - Backend:**
 ```bash
 cd backend
@@ -120,7 +113,7 @@ cd frontend
 npm start
 ```
 
-#### Option 3: Development Mode
+#### Option 2: Development Mode
 ```bash
 # Backend with auto-reload
 cd backend
