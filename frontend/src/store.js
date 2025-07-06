@@ -60,4 +60,20 @@ export const useStore = create((set, get) => ({
       }),
     });
   },
+  deleteNode: (nodeId) => {
+    set({
+      nodes: get().nodes.filter((node) => node.id !== nodeId),
+      edges: get().edges.filter((edge) => edge.source !== nodeId && edge.target !== nodeId),
+    });
+  },
+  updateNodeTitle: (nodeId, newTitle) => {
+    set({
+      nodes: get().nodes.map((node) => {
+        if (node.id === nodeId) {
+          node.data = { ...node.data, customTitle: newTitle };
+        }
+        return node;
+      }),
+    });
+  },
 }));

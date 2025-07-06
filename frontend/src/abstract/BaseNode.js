@@ -36,11 +36,75 @@ export const BaseNode = ({
     return initialValues;
   });
 
+  const [nodeTitle, setNodeTitle] = useState(data?.customTitle || title);
+  const [isEditingTitle, setIsEditingTitle] = useState(false);
+  const [tempTitle, setTempTitle] = useState('');
+  const [titleError, setTitleError] = useState('');
+
   const handleFieldChange = (fieldName, value) => {
     setFieldValues(prev => ({
       ...prev,
       [fieldName]: value
     }));
+  };
+
+  const validateAndUpdateTitle = (newTitle) => {
+    const trimmedTitle = newTitle.trim();
+    
+    if (!trimmedTitle) {
+      setTitleError('Node name cannot be empty');
+      return false;
+    }
+    
+    if (trimmedTitle.length > 50) {
+      setTitleError('Node name cannot exceed 50 characters');
+      return false;
+    }
+    
+    setTitleError('');
+    setNodeTitle(trimmedTitle);
+    if (data && typeof data.onTitleChange === 'function') {
+      data.onTitleChange(id, trimmedTitle);
+    }
+    return true;
+  };
+
+  const handleTitleDoubleClick = () => {
+    setIsEditingTitle(true);
+    setTempTitle(nodeTitle);
+    setTitleError('');
+  };
+
+  const handleTitleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      if (validateAndUpdateTitle(tempTitle)) {
+        setIsEditingTitle(false);
+      }
+    }
+    if (e.key === 'Escape') {
+      setTempTitle(nodeTitle);
+      setTitleError('');
+      setIsEditingTitle(false);
+    }
+  };
+
+  const handleTitleBlur = () => {
+    if (validateAndUpdateTitle(tempTitle)) {
+      setIsEditingTitle(false);
+    }
+  };
+
+  const handleTitleInputChange = (e) => {
+    setTempTitle(e.target.value);
+    if (titleError) {
+      setTitleError('');
+    }
+  };
+
+  const handleDeleteNode = () => {
+    if (data && typeof data.onDeleteNode === 'function') {
+      data.onDeleteNode(id);
+    }
   };
 
   const nodeGlowStyle = {
@@ -161,6 +225,19 @@ export const BaseNode = ({
         <span className="text-white text-base font-bold">i</span>
       </button>
 
+      <button
+        type="button"
+        className="absolute -right-10 top-14 w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-r from-gray-600 to-gray-800 hover:from-gray-700 hover:to-gray-900 transition-all duration-300 cursor-pointer shadow-lg hover:scale-110"
+        onClick={handleDeleteNode}
+        aria-label="Delete node"
+        title="Delete node"
+        style={{
+          zIndex: 9000
+        }}
+      >
+        <span className="text-white text-lg font-bold leading-none">×</span>
+      </button>
+
       {handles.map((handle, index) => {
         const baseStyle = {
           backgroundColor: handle.type === 'source' ? '#9333ea' : '#a855f7',
@@ -187,7 +264,49 @@ export const BaseNode = ({
 
       <div className={NODE_STYLES.nodeHeader}>
         <div className={NODE_STYLES.title}>
-          <span>{title}</span>
+          {isEditingTitle ? (
+            <div className="w-full">
+              <input
+                type="text"
+                value={tempTitle}
+                onChange={handleTitleInputChange}
+                onKeyDown={handleTitleKeyDown}
+                onBlur={handleTitleBlur}
+                className={`bg-transparent border-b text-white font-bold text-lg outline-none w-full transition-colors ${
+                  titleError ? 'border-red-400 focus:border-red-400' : 'border-slate-400 focus:border-blue-400'
+                }`}
+                autoFocus
+                maxLength={50}
+              />
+              {titleError && (
+                <div className="text-red-400 text-xs mt-1 absolute z-10 bg-slate-800 px-2 py-1 rounded border border-red-400">
+                  {titleError}
+                </div>
+              )}
+            </div>
+          ) : (
+            <span
+              onDoubleClick={handleTitleDoubleClick}
+              className="cursor-pointer hover:text-blue-300 transition-colors"
+              title="Double-click to rename"
+            >
+              {nodeTitle}
+            </span>
+          )}
+          <div className="flex items-center space-x-1">
+            <button
+              type="button"
+              className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-r from-gray-600 to-gray-800 hover:from-gray-700 hover:to-gray-900 transition-all duration-300 cursor-pointer shadow-lg hover:scale-110"
+              onClick={handleDeleteNode}
+              aria-label="Delete node"
+              title="Delete node"
+              style={{
+                zIndex: 9000
+              }}
+            >
+              <span className="text-white text-sm font-bold leading-none">×</span>
+            </button>
+          </div>
         </div>
         {subtitle && (
           <div className={NODE_STYLES.subtitle}>
@@ -224,7 +343,7 @@ export const BaseNode = ({
           }}
         >
           <div className="flex justify-between items-center mb-2">
-            <p className="font-bold text-sm text-purple-900">{title} Node</p>
+            <p className="font-bold text-sm text-purple-900">{nodeTitle} Node</p>
             <button
               onClick={() => setShowHelp(false)}
               className="text-purple-400 hover:text-purple-900"

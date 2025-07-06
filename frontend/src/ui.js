@@ -37,6 +37,8 @@ const selector = (state) => ({
   onNodesChange: state.onNodesChange,
   onEdgesChange: state.onEdgesChange,
   onConnect: state.onConnect,
+  deleteNode: state.deleteNode,
+  updateNodeTitle: state.updateNodeTitle,
 });
 
 export const PipelineUI = ({ isMobile }) => {
@@ -49,13 +51,20 @@ export const PipelineUI = ({ isMobile }) => {
     addNode,
     onNodesChange,
     onEdgesChange,
-    onConnect
+    onConnect,
+    deleteNode,
+    updateNodeTitle,
   } = useStore(selector, shallow);
 
-  const getInitNodeData = (nodeID, type) => {
-    let nodeData = { id: nodeID, nodeType: `${type}` };
+  const getInitNodeData = useCallback((nodeID, type) => {
+    let nodeData = { 
+      id: nodeID, 
+      nodeType: `${type}`,
+      onDeleteNode: deleteNode,
+      onTitleChange: updateNodeTitle,
+    };
     return nodeData;
-  }
+  }, [deleteNode, updateNodeTitle]);
 
   const onDrop = useCallback(
     (event) => {
@@ -91,7 +100,7 @@ export const PipelineUI = ({ isMobile }) => {
         addNode(newNode);
       }
     },
-    [reactFlowInstance, addNode, getNodeID]
+    [reactFlowInstance, addNode, getNodeID, getInitNodeData]
   );
 
   const onDragOver = useCallback((event) => {
