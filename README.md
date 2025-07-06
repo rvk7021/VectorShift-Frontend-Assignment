@@ -71,15 +71,14 @@ This application follows a modern full-stack architecture with clear separation 
 #### Services
 - **`pipelineService.js`**: API communication for pipeline operations
 
-## 🚀 Setup Guidelines
+## 🚀 Local Development Setup
 
 ### Prerequisites
 - **Node.js**: v16.0.0 or higher
 - **Python**: v3.8.0 or higher
-- **NPM/Yarn**: Latest version
-- **Modern Browser**: Chrome, Firefox, Safari, or Edge
+- **Git**: For version control
 
-### Installation Steps
+### Quick Start
 
 #### 1. Clone the Repository
 ```bash
@@ -87,24 +86,33 @@ git clone <repository-url>
 cd VectorShift-Frontend-Assignment
 ```
 
-#### 2. Frontend Setup
-```bash
-cd frontend
-npm install
-```
-
-#### 3. Backend Setup
+#### 2. Backend Setup
 ```bash
 cd backend
 pip install -r requirements.txt
 ```
 
-### Running the Application
+#### 3. Frontend Setup
+```bash
+cd frontend
+npm install
+```
+
+**Note**: Make sure to run `pip install -r requirements.txt` in the backend directory before running the backend server.
+
+#### 4. Environment Configuration
+
+Create `frontend/.env` file:
+```env
+REACT_APP_API_URL=http://localhost:8000
+```
+
+#### 5. Run the Application
 
 **Terminal 1 - Backend:**
 ```bash
 cd backend
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+python main.py
 ```
 
 **Terminal 2 - Frontend:**
@@ -113,26 +121,9 @@ cd frontend
 npm start
 ```
 
-#### Option 2: Development Mode
-```bash
-# Backend with auto-reload
-cd backend
-uvicorn main:app --reload --port 8000
-
-# Frontend with hot-reload
-cd frontend
-npm run start
-```
-
-### Environment Configuration
-
-#### Backend Environment Variables
-- `HOST`: Server host (default: 0.0.0.0)
-- `PORT`: Server port (default: 8000)
-- `CORS_ORIGINS`: Allowed origins for CORS
-
-#### Frontend Environment Variables
-- `REACT_APP_API_URL`: Backend API URL (default: http://localhost:8000)
+#### 6. Access the Application
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
 
 ## 🔧 Development Workflow
 

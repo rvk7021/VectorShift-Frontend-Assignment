@@ -4,10 +4,13 @@ import json
 from collections import defaultdict, deque
 import uvicorn
 import os
-from dotenv import load_dotenv
 
-# Load environment variables
-load_dotenv()
+# Load environment variables (optional)
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # dotenv is optional
 
 app = FastAPI()
 
