@@ -25,38 +25,54 @@ const NODE_TYPES = [
 ];
 
 export const PipelineToolbar = () => {
-    const [activeCategory, setActiveCategory] = useState('io');
+    const [activeCategory, setActiveCategory] = useState('');
+    const [showAllNodes, setShowAllNodes] = useState(false);
 
     // Filter nodes based on selected category
     const filteredNodes = NODE_TYPES.filter(node =>
         activeCategory === 'all' || node.categories.includes(activeCategory)
     );
 
+    // Handle category click - make "All" collapsible
+    const handleCategoryClick = (categoryId) => {
+        if (categoryId === 'all') {
+            if (activeCategory === 'all') {
+                // If "All" is already active, toggle the visibility
+                setShowAllNodes(!showAllNodes);
+            } else {
+                // If switching to "All", show it
+                setActiveCategory('all');
+                setShowAllNodes(true);
+            }
+        } else {
+            setActiveCategory(categoryId);
+            setShowAllNodes(false);
+        }
+    };
+
+    // Determine if nodes should be shown
+    const shouldShowNodes = (activeCategory !== 'all' && activeCategory !== '') || showAllNodes;
+
     return (
-        <div className="py-2 px-4 flex flex-col items-center">
-            {/* Category tabs */}
-            <div className="mb-4 flex flex-wrap gap-2 justify-center">
-                {NODE_CATEGORIES.map((category) => (
-                    <button
-                        key={category.id}
-                        className={`px-4 py-1.5 rounded-full text-white text-sm transition-colors duration-200 min-w-[70px]
-                            ${activeCategory === category.id
-                                ? 'bg-purple-700 font-bold shadow-md'
-                                : 'bg-purple-900 hover:bg-purple-800'
-                            }`}
-                        onClick={() => setActiveCategory(category.id)}
-                    >
-                        {category.label}
-                    </button>
-                ))}
+        <div className="node-div">
+            <div className="node-div-header">
+                <div className="flex flex-wrap gap-2 justify-start">
+                    {NODE_CATEGORIES.map((category) => (
+                        <button
+                            key={category.id}
+                            className={`category-btn ${activeCategory === category.id ? 'active' : 'inactive'}`}
+                            onClick={() => handleCategoryClick(category.id)}
+                        >
+                            {category.label}
+                        </button>
+                    ))}
+                </div>
             </div>
 
-            {/* Node items */}
-            <div className="flex flex-wrap gap-2 justify-center">
+            {/* Node items with collapsible behavior */}
+            <div className={`nodes-container ${shouldShowNodes ? 'visible' : 'hidden'}`}>
                 {filteredNodes.map((node) => (
-                    <div key={node.type} className="text-xs">
-                        <DraggableNode type={node.type} label={node.label} />
-                    </div>
+                    <DraggableNode key={node.type} type={node.type} label={node.label} />
                 ))}
             </div>
         </div>

@@ -4,17 +4,17 @@ import { Handle, Position } from 'reactflow';
 export { Position };
 
 export const NODE_STYLES = {
-  container: "w-[260px] min-h-[120px] border border-purple-400 rounded-md overflow-hidden flex flex-col relative shadow-xl backdrop-blur-sm transition-all duration-300 hover:shadow-2xl hover:border-purple-600",
-  nodeHeader: "px-3 pt-3 pb-2 bg-gradient-to-r from-purple-600 to-purple-800 border-b border-purple-400",
-  nodeBody: "p-3 pt-2 bg-white",
+  container: "w-[260px] min-h-[120px] border border-slate-600 rounded-md overflow-hidden flex flex-col relative shadow-xl backdrop-blur-sm transition-all duration-300 hover:shadow-2xl hover:border-blue-400",
+  nodeHeader: "px-3 pt-3 pb-2 bg-gradient-to-r from-slate-700 to-slate-800 border-b border-slate-600",
+  nodeBody: "p-3 pt-2 bg-slate-800",
   title: "font-bold text-lg text-white mb-0 flex items-center justify-between",
-  subtitle: "text-xs text-purple-100 mt-1",
+  subtitle: "text-xs text-slate-300 mt-1",
   formContainer: "space-y-3 mt-2",
-  label: "flex flex-col space-y-1.5 text-sm font-medium text-purple-800 group",
-  input: "border border-purple-300 rounded px-2 py-2 text-base w-full bg-purple-50 text-purple-900 placeholder-purple-300 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-400 transition-colors duration-200",
-  select: "border border-purple-300 rounded px-2 py-2 text-base w-full bg-purple-50 text-purple-900 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-400 transition-colors duration-200",
-  textarea: "border border-purple-300 rounded px-2 py-2 text-base w-full bg-purple-50 text-purple-900 placeholder-purple-300 focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-400 resize-none min-h-[60px] max-h-[200px] overflow-y-auto transition-colors duration-200",
-  description: "text-xs text-purple-600 mt-1 opacity-90 group-hover:opacity-100 transition-opacity duration-200"
+  label: "flex flex-col space-y-1.5 text-sm font-medium text-slate-200 group",
+  input: "border border-slate-600 rounded px-2 py-2 text-base w-full bg-slate-700 text-slate-100 placeholder-slate-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 transition-colors duration-200",
+  select: "border border-slate-600 rounded px-2 py-2 text-base w-full bg-slate-700 text-slate-100 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 transition-colors duration-200",
+  textarea: "border border-slate-600 rounded px-2 py-2 text-base w-full bg-slate-700 text-slate-100 placeholder-slate-400 focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-400 resize-none min-h-[60px] max-h-[200px] overflow-y-auto transition-colors duration-200",
+  description: "text-xs text-slate-400 mt-1 opacity-90 group-hover:opacity-100 transition-opacity duration-200"
 };
 
 export const BaseNode = ({
@@ -43,7 +43,7 @@ export const BaseNode = ({
   };
 
   const nodeGlowStyle = {
-    boxShadow: '0 0 15px rgba(147, 51, 234, 0.3), 0 5px 15px rgba(147, 51, 234, 0.15)',
+    boxShadow: '0 0 15px rgba(59, 130, 246, 0.3), 0 5px 15px rgba(59, 130, 246, 0.15)',
     position: 'relative',
     minWidth: '260px',
     maxWidth: '280px',
