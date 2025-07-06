@@ -1,6 +1,0 @@
-@echo off
-echo Starting backend server...
-start cmd /k "cd backend && python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000"
-echo Starting frontend server...
-start cmd /k "cd frontend && npm start"
-echo Both servers started!

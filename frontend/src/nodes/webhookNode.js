@@ -1,6 +1,6 @@
 // webhookNode.js
 
-import { createNode, Position } from './BaseNode';
+import { createNode, Position } from '../abstract/BaseNode';
 
 // Webhook Node configuration
 const webhookNodeConfig = {

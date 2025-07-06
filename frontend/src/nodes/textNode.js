@@ -1,6 +1,6 @@
 // textNode.js
 
-import { createNode, Position } from './BaseNode';
+import { createNode, Position } from '../abstract/BaseNode';
 
 // TextNode configuration
 const textNodeConfig = {

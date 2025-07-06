@@ -37,20 +37,16 @@ export const PipelineToolbar = () => {
     const handleCategoryClick = (categoryId) => {
         if (categoryId === 'all') {
             if (activeCategory === 'all') {
-                // If "All" is already active, toggle the visibility
                 setShowAllNodes(!showAllNodes);
             } else {
-                // If switching to "All", show it
                 setActiveCategory('all');
                 setShowAllNodes(true);
             }
         } else {
             if (activeCategory === categoryId) {
-                // If the same category is clicked again, collapse it
                 setActiveCategory('');
                 setShowAllNodes(false);
             } else {
-                // If switching to a different category, show it
                 setActiveCategory(categoryId);
                 setShowAllNodes(false);
             }

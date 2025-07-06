@@ -1,6 +1,6 @@
 // llmNode.js
 
-import { createNode, Position } from './BaseNode';
+import { createNode, Position } from '../abstract/BaseNode';
 
 // LLMNode configuration
 const llmNodeConfig = {

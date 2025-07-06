@@ -1,6 +1,6 @@
 // inputNode.js
 
-import { createNode, Position } from './BaseNode';
+import { createNode, Position } from '../abstract/BaseNode';
 
 // InputNode configuration
 const inputNodeConfig = {

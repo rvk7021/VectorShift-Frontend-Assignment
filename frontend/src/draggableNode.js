@@ -1,13 +1,9 @@
-// draggableNode.js
 
 export const DraggableNode = ({ type, label }) => {
   const onDragStart = (event, nodeType) => {
     const appData = { nodeType }
     event.dataTransfer.setData('application/reactflow', JSON.stringify(appData));
     event.dataTransfer.effectAllowed = 'move';
-  };
-
-  const onDragEnd = (event) => {
   };
 
   const getColorClass = () => {
@@ -46,7 +42,6 @@ export const DraggableNode = ({ type, label }) => {
     <div
       className={`${type} cursor-grab active:cursor-grabbing w-[50px] sm:w-[65px] h-[35px] flex items-center justify-center flex-col rounded-md transition-all duration-200 shadow-md backdrop-blur-sm bg-opacity-95 bg-gradient-to-b ${getColorClass()} hover:scale-110 hover:shadow-lg border border-opacity-40 border-white/20`}
       onDragStart={(event) => onDragStart(event, type)}
-      onDragEnd={onDragEnd}
       draggable
     >
       {getNodeIcon()}

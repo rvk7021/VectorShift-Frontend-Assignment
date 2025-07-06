@@ -1,6 +1,6 @@
 // outputNode.js
 
-import { createNode, Position } from './BaseNode';
+import { createNode, Position } from '../abstract/BaseNode';
 
 // OutputNode configuration
 const outputNodeConfig = {
