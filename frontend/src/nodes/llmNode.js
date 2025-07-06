@@ -6,7 +6,7 @@ import { createNode, Position } from './BaseNode';
 const llmNodeConfig = {
   title: "OpenAI",
   subtitle: "AI language processing",
-  className: "bg-gradient-to-b from-purple-900 to-purple-800 border-purple-700 items-center",
+  className: "bg-gradient-to-b from-slate-800 to-slate-900 border-slate-600 items-center",
   handles: [
     {
       type: "target",

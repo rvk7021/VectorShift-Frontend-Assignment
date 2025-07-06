@@ -131,7 +131,7 @@ body {
 
 /* AI Pipeline header styling */
 .ai-pipeline-header {
-  background: linear-gradient(135deg, #0a0a0f 0%, #1a1626 25%, #2d1b69 50%, #1e40af 75%, #0a0a0f 100%);
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1626 25%, #2d1b69 50%, #211b77 75%, #0a0a0f 100%);
   color: #f1f5f9;
   padding: 1rem 2rem;
   display: flex;
@@ -252,7 +252,7 @@ body {
 
 /* Node div styling with same color scheme as AI Pipeline header */
 .node-div {
-  background: linear-gradient(135deg, #0a0a0f 0%, #1a1626 25%, #2d1b69 50%, #1e40af 75%, #0a0a0f 100%);
+  background: linear-gradient(135deg, #0a0a0f 0%, #1a1626 25%, #2d1b69 50%, #211b77 75%, #0a0a0f 100%);
   color: #f1f5f9;
   padding: 1rem;
   position: relative;

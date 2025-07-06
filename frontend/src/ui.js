@@ -113,7 +113,7 @@ export const PipelineUI = ({ isMobile }) => {
             <button
               type="button"
               onClick={clearAll}
-              className="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white font-medium py-1.5 px-4 rounded-md shadow-md border border-slate-600 transition-all duration-200 flex items-center space-x-1.5 text-sm"
+              className="bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-700 hover:to-indigo-800 text-white font-medium py-1.5 px-4 rounded-md shadow-md border border-purple-500 transition-all duration-200 flex items-center space-x-1.5 text-sm"
             >
               <span>Clear</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

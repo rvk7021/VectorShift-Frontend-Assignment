@@ -33,7 +33,7 @@ export const PipelineToolbar = () => {
         activeCategory === 'all' || node.categories.includes(activeCategory)
     );
 
-    // Handle category click - make "All" collapsible
+    // Handle category click - make all categories collapsible
     const handleCategoryClick = (categoryId) => {
         if (categoryId === 'all') {
             if (activeCategory === 'all') {
@@ -45,8 +45,15 @@ export const PipelineToolbar = () => {
                 setShowAllNodes(true);
             }
         } else {
-            setActiveCategory(categoryId);
-            setShowAllNodes(false);
+            if (activeCategory === categoryId) {
+                // If the same category is clicked again, collapse it
+                setActiveCategory('');
+                setShowAllNodes(false);
+            } else {
+                // If switching to a different category, show it
+                setActiveCategory(categoryId);
+                setShowAllNodes(false);
+            }
         }
     };
 
