@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Handle, Position } from 'reactflow';
-import { FieldTypes } from '../types';
 
 export { Position };
 
