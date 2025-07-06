@@ -1,4 +1,6 @@
-const BACKEND_URL = 'http://localhost:8000/pipelines/parse';
+import { API_ENDPOINTS } from '../config/api';
+
+const BACKEND_URL = API_ENDPOINTS.PARSE_PIPELINE;
 
 export const submitPipeline = async (nodes, edges) => {
     const loadingElement = document.createElement('div');
