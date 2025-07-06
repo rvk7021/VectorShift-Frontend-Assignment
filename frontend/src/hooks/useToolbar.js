@@ -7,29 +7,23 @@ export const useToolbar = () => {
     const [activeCategory, setActiveCategory] = useState('');
     const [showAllNodes, setShowAllNodes] = useState(false);
 
-    // Memoized filtered nodes for performance
     const filteredNodes = useMemo(() => {
         return getNodesByCategory(activeCategory);
     }, [activeCategory]);
 
-    // Handle category click with improved logic
     const handleCategoryClick = (categoryId) => {
         if (categoryId === 'all') {
             if (activeCategory === 'all') {
-                // Toggle show/hide for "All" category
                 setShowAllNodes(!showAllNodes);
             } else {
-                // Switch to "All" category and show nodes
                 setActiveCategory('all');
                 setShowAllNodes(true);
             }
         } else {
             if (activeCategory === categoryId) {
-                // Collapse current category
                 setActiveCategory('');
                 setShowAllNodes(false);
             } else {
-                // Switch to new category
                 setActiveCategory(categoryId);
                 setShowAllNodes(false);
             }
@@ -41,7 +35,6 @@ export const useToolbar = () => {
         return (activeCategory !== 'all' && activeCategory !== '') || showAllNodes;
     }, [activeCategory, showAllNodes]);
 
-    // Get button state for a category
     const getCategoryButtonState = (categoryId) => {
         return {
             isActive: activeCategory === categoryId,
