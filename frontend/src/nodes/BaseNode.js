@@ -17,15 +17,15 @@ export const NODE_STYLES = {
   description: "text-xs text-purple-600 mt-1 opacity-90 group-hover:opacity-100 transition-opacity duration-200"
 };
 
-export const BaseNode = ({ 
-  id, 
-  data, 
-  title, 
-  subtitle, 
-  handles = [], 
-  fields = [], 
+export const BaseNode = ({
+  id,
+  data,
+  title,
+  subtitle,
+  handles = [],
+  fields = [],
   className = "",
-  children 
+  children
 }) => {
   const [fieldValues, setFieldValues] = useState(() => {
     const initialValues = {};
@@ -77,7 +77,7 @@ export const BaseNode = ({
             {renderDescription()}
           </div>
         );
-      
+
       case 'textarea':
         const adjustHeight = (e) => {
           e.target.style.height = 'auto';
@@ -85,7 +85,7 @@ export const BaseNode = ({
           e.target.style.height = `${newHeight}px`;
           handleFieldChange(name, e.target.value);
         };
-        
+
         return (
           <div key={name} className="w-full">
             <textarea
@@ -99,7 +99,7 @@ export const BaseNode = ({
             {renderDescription()}
           </div>
         );
-      
+
       case 'select':
         return (
           <div key={name} className="w-full">
@@ -118,7 +118,7 @@ export const BaseNode = ({
             {renderDescription()}
           </div>
         );
-      
+
       default:
         return null;
     }
@@ -127,8 +127,8 @@ export const BaseNode = ({
   const [showHelp, setShowHelp] = useState(false);
 
   return (
-    <div 
-      className={`${NODE_STYLES.container} ${className}`} 
+    <div
+      className={`${NODE_STYLES.container} ${className}`}
       style={nodeGlowStyle}
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) {
@@ -145,14 +145,14 @@ export const BaseNode = ({
           e.currentTarget.style.cursor = 'grab';
         }
       }}>
-      <button 
+      <button
         type="button"
         className="absolute -right-10 top-3 w-8 h-8 flex items-center justify-center rounded-full bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 transition-all duration-300 cursor-help shadow-lg"
         onMouseEnter={() => setShowHelp(true)}
         onMouseLeave={() => setShowHelp(false)}
         onClick={() => setShowHelp(!showHelp)}
         aria-label="Node information"
-        style={{ 
+        style={{
           zIndex: 9000,
           animation: 'pulse 2s infinite'
         }}
@@ -161,16 +161,16 @@ export const BaseNode = ({
       </button>
 
       {handles.map((handle, index) => {
-        const baseStyle = { 
-          backgroundColor: handle.type === 'source' ? '#9333ea' : '#a855f7', 
-          width: 12, 
-          height: 12, 
-          border: handle.type === 'source' ? '2px solid #d8b4fe' : '2px solid #d8b4fe', 
+        const baseStyle = {
+          backgroundColor: handle.type === 'source' ? '#9333ea' : '#a855f7',
+          width: 12,
+          height: 12,
+          border: handle.type === 'source' ? '2px solid #d8b4fe' : '2px solid #d8b4fe',
           zIndex: 5,
           boxShadow: '0 0 8px rgba(147, 51, 234, 0.6)',
           borderRadius: '4px'
         };
-        
+
         return (
           <React.Fragment key={index}>
             <Handle
@@ -208,10 +208,10 @@ export const BaseNode = ({
         )}
         {children}
       </div>
-      
+
       {showHelp && (
-        <div 
-          className="fixed bg-white text-purple-900 p-5 rounded-md shadow-2xl text-xs w-80 border-2 border-purple-400" 
+        <div
+          className="fixed bg-white text-purple-900 p-5 rounded-md shadow-2xl text-xs w-80 border-2 border-purple-400"
           style={{
             zIndex: 9999,
             top: '50%',
@@ -224,7 +224,7 @@ export const BaseNode = ({
         >
           <div className="flex justify-between items-center mb-2">
             <p className="font-bold text-sm text-purple-900">{title} Node</p>
-            <button 
+            <button
               onClick={() => setShowHelp(false)}
               className="text-purple-400 hover:text-purple-900"
             >
@@ -232,7 +232,7 @@ export const BaseNode = ({
             </button>
           </div>
           <p className="text-purple-700 mb-3">{subtitle || 'This node processes the input data.'}</p>
-          
+
           {fields.length > 0 && (
             <>
               <p className="text-xs text-purple-900 font-bold mb-2 border-t border-purple-200 pt-2">NODE FIELDS</p>
@@ -243,7 +243,7 @@ export const BaseNode = ({
               </ul>
             </>
           )}
-          
+
           {handles.length > 0 && (
             <>
               <p className="text-xs text-purple-900 font-bold mt-3 mb-2 border-t border-purple-200 pt-2">CONNECTIONS</p>
@@ -273,8 +273,8 @@ export const createNode = (nodeConfig) => {
     const fields = nodeConfig.fields?.map(field => ({
       ...field,
       description: field.description || getDefaultDescription(field.name, nodeConfig.title),
-      defaultValue: typeof field.defaultValue === 'function' 
-        ? field.defaultValue(id, data) 
+      defaultValue: typeof field.defaultValue === 'function'
+        ? field.defaultValue(id, data)
         : field.defaultValue
     })) || [];
 
@@ -304,7 +304,7 @@ const getDefaultDescription = (fieldName, nodeType) => {
     query: "Database query to execute",
     filter: "Filter criteria to apply to the data"
   };
-  
+
   return descriptions[fieldName] || `Input for the ${nodeType} node`;
 };
 
@@ -320,6 +320,6 @@ const getDefaultSubtitle = (nodeType) => {
     "Webhook": "Connect to external APIs",
     "Context": "Store and retrieve contextual data"
   };
-  
+
   return subtitles[nodeType] || "Process your pipeline data";
 };

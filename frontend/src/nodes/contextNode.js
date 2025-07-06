@@ -15,7 +15,7 @@ const contextNodeConfig = {
       style: { top: "25%" }
     },
     {
-      type: "target", 
+      type: "target",
       position: Position.Left,
       id: "{id}-update",
       style: { top: "75%" }
@@ -28,7 +28,7 @@ const contextNodeConfig = {
     },
     {
       type: "source",
-      position: Position.Right, 
+      position: Position.Right,
       id: "{id}-output",
       style: { top: "66%" }
     }
@@ -55,7 +55,7 @@ const contextNodeConfig = {
     {
       name: "mergeStrategy",
       label: "Merge Strategy",
-      type: "select", 
+      type: "select",
       defaultValue: "replace",
       options: [
         { value: "replace", label: "Replace" },

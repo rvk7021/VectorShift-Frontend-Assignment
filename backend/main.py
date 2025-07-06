@@ -5,10 +5,9 @@ from collections import defaultdict, deque
 
 app = FastAPI()
 
-# Add CORS middleware to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific frontend URL
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -19,25 +18,18 @@ def read_root():
     return {'Ping': 'Pong'}
 
 def is_dag(nodes, edges):
-    """
-    Check if a graph is a Directed Acyclic Graph (DAG) using BFS.
-    Returns True if the graph is a DAG, False otherwise.
-    """
     if not nodes or not edges:
-        return True  # Empty graph is considered a DAG
+        return True
     
-    # Create an adjacency list
     graph = defaultdict(list)
     indegree = {node['id']: 0 for node in nodes}
     
-    # Fill the adjacency list and count indegrees
     for edge in edges:
         source = edge['source']
         target = edge['target']
         graph[source].append(target)
         indegree[target] = indegree.get(target, 0) + 1
     
-    # Initialize queue with nodes that have no incoming edges
     queue = deque([node_id for node_id, degree in indegree.items() if degree == 0])
     visited_count = 0
     

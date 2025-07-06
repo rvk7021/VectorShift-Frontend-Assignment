@@ -15,7 +15,7 @@ const databaseNodeConfig = {
       style: { top: "20%" }
     },
     {
-      type: "target", 
+      type: "target",
       position: Position.Left,
       id: "{id}-params",
       style: { top: "50%" }
@@ -34,7 +34,7 @@ const databaseNodeConfig = {
     },
     {
       type: "source",
-      position: Position.Right, 
+      position: Position.Right,
       id: "{id}-error",
       style: { top: "70%" }
     }

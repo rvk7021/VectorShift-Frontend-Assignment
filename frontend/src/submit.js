@@ -1,27 +1,10 @@
-// submit.js
-
-/**
- * This file handles the submission of the pipeline to the backend for analysis.
- * It contains functions to send the nodes and edges to the backend API and display
- * the results to the user.
- */
-
-// Backend endpoint for pipeline parsing
 const BACKEND_URL = 'http://localhost:8000/pipelines/parse';
 
-/**
- * Submits the pipeline to the backend for analysis
- * 
- * @param {Array} nodes - The nodes in the pipeline
- * @param {Array} edges - The edges connecting the nodes
- * @returns {Promise} - The response from the backend
- */
 export const submitPipeline = async (nodes, edges) => {
-    // Create loading indicator
     const loadingElement = document.createElement('div');
     loadingElement.className = 'fixed inset-0 flex items-center justify-center z-[9999] bg-black bg-opacity-30';
     loadingElement.style.cssText = 'backdrop-filter: blur(2px);';
-    
+
     const spinner = document.createElement('div');
     spinner.className = 'bg-white dark:bg-purple-900 text-purple-900 dark:text-white rounded-lg shadow-xl p-6 flex flex-col items-center space-y-3';
     spinner.innerHTML = `
@@ -30,7 +13,7 @@ export const submitPipeline = async (nodes, edges) => {
     `;
     loadingElement.appendChild(spinner);
     document.body.appendChild(loadingElement);
-    
+
     try {
         const response = await fetch(BACKEND_URL, {
             method: 'POST',
@@ -45,8 +28,7 @@ export const submitPipeline = async (nodes, edges) => {
         }
 
         const data = await response.json();
-        
-        // Remove loading indicator safely
+
         try {
             if (document.body.contains(loadingElement)) {
                 document.body.removeChild(loadingElement);
@@ -54,12 +36,10 @@ export const submitPipeline = async (nodes, edges) => {
         } catch (err) {
             console.warn("Error removing loading element:", err);
         }
-        
-        // Show results
+
         displayResults(data);
         return data;
     } catch (error) {
-        // Remove loading indicator safely
         try {
             if (document.body.contains(loadingElement)) {
                 document.body.removeChild(loadingElement);
@@ -67,14 +47,13 @@ export const submitPipeline = async (nodes, edges) => {
         } catch (err) {
             console.warn("Error removing loading element:", err);
         }
-        
+
         console.error("Error submitting pipeline:", error);
-        
-        // Show error message
+
         const errorElement = document.createElement('div');
         errorElement.className = 'fixed inset-0 flex items-center justify-center z-[9999] bg-black bg-opacity-30';
         errorElement.style.cssText = 'backdrop-filter: blur(2px);';
-        
+
         const errorContent = document.createElement('div');
         errorContent.className = 'bg-white dark:bg-purple-900 text-red-500 rounded-lg shadow-xl p-6 max-w-md w-full mx-4';
         errorContent.innerHTML = `
@@ -91,7 +70,7 @@ export const submitPipeline = async (nodes, edges) => {
         `;
         errorElement.appendChild(errorContent);
         document.body.appendChild(errorElement);
-        
+
         // Close error message when button is clicked
         const closeButton = errorContent.querySelector('button');
         closeButton.addEventListener('click', () => {
@@ -104,29 +83,21 @@ export const submitPipeline = async (nodes, edges) => {
                 console.warn("Error removing error element:", error);
             }
         });
-        
+
         throw error;
     }
 };
 
-/**
- * Displays the results from the backend in a user-friendly alert
- * 
- * @param {Object} results - The results from the backend
- */
 export const displayResults = (results) => {
     const { num_nodes, num_edges, is_dag } = results;
-    
-    // Create custom alert element
+
     const alertElement = document.createElement('div');
     alertElement.className = 'fixed inset-0 flex items-center justify-center z-[9999] bg-black bg-opacity-50';
     alertElement.style.cssText = 'backdrop-filter: blur(3px);';
-    
-    // Alert content
+
     const alertContent = document.createElement('div');
     alertContent.className = 'bg-white dark:bg-purple-900 text-purple-900 dark:text-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4';
-    
-    // Create header
+
     const header = document.createElement('div');
     header.className = 'flex items-center justify-between mb-4 pb-2 border-b border-purple-200 dark:border-purple-700';
     header.innerHTML = `
@@ -137,12 +108,10 @@ export const displayResults = (results) => {
             </svg>
         </button>
     `;
-    
-    // Create body
+
     const body = document.createElement('div');
     body.className = 'space-y-4';
-    
-    // Add results
+
     const results_container = document.createElement('div');
     results_container.className = 'grid grid-cols-2 gap-4';
     results_container.innerHTML = `
@@ -156,16 +125,15 @@ export const displayResults = (results) => {
         </div>
         <div class="col-span-2 flex items-center space-x-2 ${is_dag ? 'text-green-600' : 'text-red-500'}">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                ${is_dag 
-                    ? '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>'
-                    : '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>'
-                }
+                ${is_dag
+            ? '<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>'
+            : '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>'
+        }
             </svg>
             <span class="font-medium">${is_dag ? 'Valid DAG' : 'Not a valid DAG'}</span>
         </div>
     `;
-    
-    // Add warning if needed
+
     if (!is_dag && num_nodes > 0) {
         const warning = document.createElement('div');
         warning.className = 'bg-red-50 dark:bg-red-900/30 border-l-4 border-red-400 dark:border-red-600 p-4 text-sm text-red-700 dark:text-red-200';
@@ -179,9 +147,9 @@ export const displayResults = (results) => {
         `;
         body.appendChild(warning);
     }
-    
+
     body.appendChild(results_container);
-    
+
     // Add a note about DAGs
     const note = document.createElement('div');
     note.className = 'text-xs text-gray-500 dark:text-gray-400 mt-4 border-t border-purple-100 dark:border-purple-800 pt-3';
@@ -189,28 +157,23 @@ export const displayResults = (results) => {
         <p><strong>Note:</strong> A Directed Acyclic Graph (DAG) is a graph with no cycles, which ensures that pipeline execution can complete without infinite loops.</p>
     `;
     body.appendChild(note);
-    
-    // Add button
+
     const footer = document.createElement('div');
     footer.className = 'flex justify-end mt-6';
     const closeButton = document.createElement('button');
     closeButton.className = 'bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-md transition-colors';
     closeButton.textContent = 'Close';
     footer.appendChild(closeButton);
-    
-    // Assemble alert
+
     alertContent.appendChild(header);
     alertContent.appendChild(body);
     alertContent.appendChild(footer);
     alertElement.appendChild(alertContent);
-    
-    // Add to document
+
     document.body.appendChild(alertElement);
-    
-    // Handle close with safety check
+
     const closeAlert = () => {
         try {
-            // Check if element is still in the document before removing
             if (document.body.contains(alertElement)) {
                 document.body.removeChild(alertElement);
             }
@@ -218,7 +181,7 @@ export const displayResults = (results) => {
             console.warn("Error removing alert element:", error);
         }
     };
-    
+
     closeButton.addEventListener('click', closeAlert);
     header.querySelector('button').addEventListener('click', closeAlert);
     alertElement.addEventListener('click', (e) => {
@@ -226,17 +189,15 @@ export const displayResults = (results) => {
             closeAlert();
         }
     });
-    
-    // Auto close after 15 seconds
+
     setTimeout(closeAlert, 15000);
 };
 
-// Legacy component, now replaced by the button in ui.js
 export const SubmitButton = () => {
     return (
         <div className="flex items-center justify-center py-4">
-            <button 
-                type="submit" 
+            <button
+                type="submit"
                 className="bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white font-bold py-3 px-8 rounded-lg shadow-lg border border-purple-400 transition-all duration-200 transform hover:scale-105 flex items-center space-x-2"
             >
                 <span>Run Pipeline</span>

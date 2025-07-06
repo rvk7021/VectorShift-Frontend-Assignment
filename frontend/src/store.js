@@ -1,5 +1,3 @@
-// store.js
-
 import { create } from "zustand";
 import {
   addEdge,
@@ -38,17 +36,17 @@ export const useStore = create((set, get) => ({
   },
   onConnect: (connection) => {
     set({
-      edges: addEdge({ 
-        ...connection, 
-        type: 'smoothstep', 
-        animated: true, 
+      edges: addEdge({
+        ...connection,
+        type: 'smoothstep',
+        animated: true,
         style: { stroke: '#a78bfa', strokeWidth: 2, strokeDasharray: '5, 5' },
-        markerEnd: { 
-          type: MarkerType.Arrow, 
-          height: '20px', 
+        markerEnd: {
+          type: MarkerType.Arrow,
+          height: '20px',
           width: '20px',
           color: '#a78bfa'
-        } 
+        }
       }, get().edges),
     });
   },

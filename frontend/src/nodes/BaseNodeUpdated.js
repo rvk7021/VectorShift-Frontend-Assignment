@@ -17,15 +17,15 @@ export const NODE_STYLES = {
   description: "text-xs text-purple-200 mt-1 opacity-90 group-hover:opacity-100 transition-opacity duration-200"
 };
 
-export const BaseNode = ({ 
-  id, 
-  data, 
-  title, 
-  subtitle, 
-  handles = [], 
-  fields = [], 
+export const BaseNode = ({
+  id,
+  data,
+  title,
+  subtitle,
+  handles = [],
+  fields = [],
   className = "",
-  children 
+  children
 }) => {
   const [fieldValues, setFieldValues] = useState(() => {
     const initialValues = {};
@@ -75,7 +75,7 @@ export const BaseNode = ({
             {renderDescription()}
           </div>
         );
-      
+
       case 'textarea':
         const adjustHeight = (e) => {
           e.target.style.height = 'auto';
@@ -83,7 +83,7 @@ export const BaseNode = ({
           e.target.style.height = `${newHeight}px`;
           handleFieldChange(name, e.target.value);
         };
-        
+
         return (
           <div key={name} className="w-full">
             <textarea
@@ -95,7 +95,7 @@ export const BaseNode = ({
             {renderDescription()}
           </div>
         );
-      
+
       case 'select':
         return (
           <div key={name} className="w-full">
@@ -114,7 +114,7 @@ export const BaseNode = ({
             {renderDescription()}
           </div>
         );
-      
+
       default:
         return null;
     }
@@ -124,7 +124,7 @@ export const BaseNode = ({
 
   return (
     <div className={`${NODE_STYLES.container} ${className}`} style={nodeGlowStyle}>
-      <button 
+      <button
         type="button"
         className="absolute -right-7 top-3 w-5 h-5 flex items-center justify-center rounded-full bg-gradient-to-br from-white to-purple-300 hover:from-white hover:to-purple-200 transition-colors cursor-help border border-purple-400 shadow-md"
         onMouseEnter={() => setShowHelp(true)}
@@ -137,16 +137,16 @@ export const BaseNode = ({
       </button>
 
       {handles.map((handle, index) => {
-        const baseStyle = { 
-          backgroundColor: handle.type === 'source' ? '#a855f7' : '#c084fc', 
-          width: 12, 
-          height: 12, 
-          border: handle.type === 'source' ? '2px solid #8b5cf6' : '2px solid #a78bfa', 
+        const baseStyle = {
+          backgroundColor: handle.type === 'source' ? '#a855f7' : '#c084fc',
+          width: 12,
+          height: 12,
+          border: handle.type === 'source' ? '2px solid #8b5cf6' : '2px solid #a78bfa',
           zIndex: 5,
           boxShadow: '0 0 8px rgba(126, 34, 206, 0.8)',
           borderRadius: '4px'
         };
-        
+
         return (
           <React.Fragment key={index}>
             <Handle
@@ -186,10 +186,10 @@ export const BaseNode = ({
 
         {children}
       </div>
-      
+
       {showHelp && (
-        <div 
-          className="fixed bg-gray-900 text-white p-4 rounded-md shadow-2xl text-xs w-72 border border-gray-700" 
+        <div
+          className="fixed bg-gray-900 text-white p-4 rounded-md shadow-2xl text-xs w-72 border border-gray-700"
           style={{
             zIndex: 9999,
             top: '50%',
@@ -201,7 +201,7 @@ export const BaseNode = ({
         >
           <div className="flex justify-between items-center mb-2">
             <p className="font-bold text-sm text-white">{title} Node</p>
-            <button 
+            <button
               onClick={() => setShowHelp(false)}
               className="text-gray-400 hover:text-white"
             >
@@ -209,7 +209,7 @@ export const BaseNode = ({
             </button>
           </div>
           <p className="text-gray-300 mb-3">{subtitle || 'This node processes the input data.'}</p>
-          
+
           {fields.length > 0 && (
             <>
               <p className="text-xs text-blue-400 font-medium mb-2 border-t border-gray-700 pt-2">NODE FIELDS</p>
@@ -220,7 +220,7 @@ export const BaseNode = ({
               </ul>
             </>
           )}
-          
+
           {handles.length > 0 && (
             <>
               <p className="text-xs text-blue-400 font-medium mt-3 mb-2 border-t border-gray-700 pt-2">CONNECTIONS</p>
@@ -250,8 +250,8 @@ export const createNode = (nodeConfig) => {
     const fields = nodeConfig.fields?.map(field => ({
       ...field,
       description: field.description || getDefaultDescription(field.name, nodeConfig.title),
-      defaultValue: typeof field.defaultValue === 'function' 
-        ? field.defaultValue(id, data) 
+      defaultValue: typeof field.defaultValue === 'function'
+        ? field.defaultValue(id, data)
         : field.defaultValue
     })) || [];
 
@@ -281,7 +281,7 @@ const getDefaultDescription = (fieldName, nodeType) => {
     query: "Database query to execute",
     filter: "Filter criteria to apply to the data"
   };
-  
+
   return descriptions[fieldName] || `Input for the ${nodeType} node`;
 };
 
@@ -297,6 +297,6 @@ const getDefaultSubtitle = (nodeType) => {
     "Webhook": "Connect to external APIs",
     "Context": "Store and retrieve contextual data"
   };
-  
+
   return subtitles[nodeType] || "Process your pipeline data";
 };
