@@ -2,6 +2,8 @@ from fastapi import FastAPI, Body
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from collections import defaultdict, deque
+import uvicorn
+import os
 
 app = FastAPI()
 
@@ -61,3 +63,12 @@ async def parse_pipeline(data: dict = Body(...)):
         }
     except Exception as e:
         return {'error': str(e)}
+
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=port,
+        reload=False
+    )
