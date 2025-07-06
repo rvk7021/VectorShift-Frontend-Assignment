@@ -33,18 +33,15 @@ def is_dag(nodes, edges):
     queue = deque([node_id for node_id, degree in indegree.items() if degree == 0])
     visited_count = 0
     
-    # Process the queue
     while queue:
         node_id = queue.popleft()
         visited_count += 1
         
-        # Process neighbors
         for neighbor in graph[node_id]:
             indegree[neighbor] -= 1
             if indegree[neighbor] == 0:
                 queue.append(neighbor)
     
-    # If we visited all nodes, then there's no cycle
     return visited_count == len(nodes)
 
 @app.post('/pipelines/parse')
